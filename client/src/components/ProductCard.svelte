@@ -1,11 +1,27 @@
 <script lang="ts">
     import type Product from '../interfaces/products'
-    import {Link} from 'svelte-routing'
+    import {goto} from '$app/navigation'
+
+    const handleNagivation = () => {
+        goto(`/products/${product.name}`);
+    }
+
+    const handleKey = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            handleNagivation();
+        }
+    }
 
     export let product: Product;
 </script>
 
-<div class="block w-full bg-white rounded-lg shadow-xl p-2 my-2 mx-6">
+<div 
+    class="block w-full bg-white rounded-lg shadow-xl cursor-pointer p-2 my-2"
+    on:click={handleNagivation}
+    on:keydown={handleKey}
+    role="button"
+    tabindex=0
+>
         <img 
             src={product.photoUrl} 
             alt="product"
@@ -28,7 +44,7 @@
                         </span>
                         <span class="text-red-500">{product.price - product.price / 100 * product.discount}$</span>
                     {:else}
-                        <span class="">{product.price}$</span>
+                        <span class="text-red-500">{product.price}$</span>
                     {/if}
                 </div>
                 <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg px-3 py-1">+</button>

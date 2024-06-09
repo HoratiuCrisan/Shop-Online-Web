@@ -11,6 +11,7 @@ use App\Controllers\OrderController;
 use App\Controllers\CartController;
 use App\Middleware\SessionMiddleware;
 use App\Middleware\CorsMiddleware;
+use Slim\Middleware\BodyParsingMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/Controllers/HomeController.php';
@@ -36,8 +37,14 @@ try {
 
     $app = AppFactory::create();
     $twig = Twig::create('../templates', ['cache' => false]);
-    $app->add(new SessionMiddleware());
+    
     $app->add(new CorsMiddleware());
+    $app->add(new SessionMiddleware());
+    $app->addBodyParsingMiddleware();
+
+    $app->options('/{routes:.+}', function (Request $request, Response $response, $args) {
+        return $response;
+    });
 
     $app->get('/', [HomeController::class, 'index']);
 
@@ -56,6 +63,7 @@ try {
 
     // Products routes
     $app->get('/products', [$productController, 'getAll']);
+    $app->get('/products/{name}', [$productController, 'getProductByName']);
     $app->get('/filtered-products', [$productController, 'getByCategory']);
     $app->post('/products', [$productController, 'create']);
     $app->put('/products/{productId}', [$productController, 'update']);
