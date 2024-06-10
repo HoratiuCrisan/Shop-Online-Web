@@ -30,6 +30,7 @@
     </div>
 
     <div class="flex justify-between mx-2 py-4">
+
         <span class="w-14 text-white cursor-pointer hover:text-gray-400 mx-8 my-1 ">
             <IoMdCart />
         </span>

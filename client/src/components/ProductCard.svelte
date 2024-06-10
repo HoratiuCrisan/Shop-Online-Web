@@ -2,13 +2,14 @@
     import type Product from '../interfaces/products'
     import {goto} from '$app/navigation'
 
-    const handleNagivation = () => {
-        goto(`/products/${product.name}`);
+    const handleNagivation = (name: string | undefined) => {
+        if (name !== undefined)
+            goto(`/products/${name}`);
     }
 
     const handleKey = (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
-            handleNagivation();
+            
         }
     }
 
@@ -17,7 +18,7 @@
 
 <div 
     class="block w-full bg-white rounded-lg shadow-xl cursor-pointer p-2 my-2"
-    on:click={handleNagivation}
+    on:click={() => handleNagivation(product.name)}
     on:keydown={handleKey}
     role="button"
     tabindex=0
@@ -25,7 +26,10 @@
         <img 
             src={product.photoUrl} 
             alt="product"
-            class="w-full p-2"
+            class="p-2"
+            width="400vh"
+            height="100vh"
+
         >
 
         <div class="w-full font-semibold p-2">
@@ -42,7 +46,7 @@
                                 {product.discount}%
                             </span>
                         </span>
-                        <span class="text-red-500">{product.price - product.price / 100 * product.discount}$</span>
+                        <span class="text-red-500">{parseFloat((product.price - product.price / 100 * product.discount).toFixed(2))}$</span>
                     {:else}
                         <span class="text-red-500">{product.price}$</span>
                     {/if}

@@ -3,9 +3,8 @@ import type Product from "../interfaces/products";
 export const getAllProducts = async() => {
     try {
         const response = await fetch("http://localhost:8080/products", {
-            method: 'GET',
             headers: {
-                'Accept': 'text/html',
+                'Accept': 'application/json',
             },
         });
 
@@ -80,7 +79,6 @@ export const createProduct = async (product: Product) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(product),  
-              
         });
 
         if (!response.ok) {
@@ -106,5 +104,36 @@ export const deleteProduct = async (productId: number) => {
             return response.json();
     } catch (err) {
         console.error(err);
+    }
+}
+
+export const updateProductById = async (product: Product, productId: number) => {
+    if (!product) {
+        throw new Error("No product data provided");
+    }
+
+    if (productId === undefined) {
+        throw new Error("Product id not provided");
+    } 
+
+    console.log("id: " + productId)
+    console.log(product);
+
+    try {
+        const response = await fetch(`http://localhost:8080/products/${productId}` , {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+        });
+
+        if (!response.ok) {
+            throw new Error("Error at updating product");
+        }
+
+        return response.json();
+    } catch (error) {
+        console.error(error);
     }
 }

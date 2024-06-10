@@ -120,20 +120,39 @@ class ProductController {
     public function update(Request $request, Response $response, $args) {
         $productId = $args['productId'];
         $data = $request->getParsedBody();
-
+    
+        error_log('Received data:');
+        error_log(var_export($data, true));
+    
         $stmt = $this->db->prepare('SELECT * FROM products WHERE id = ?');
         $stmt->execute([$productId]);
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
         if (!$product) {
-            return $this->view->render($response->withStatus(404), 'error_update.twig', ['message' => 'Product not found']);
+            $response->getBody()->write(json_encode(['error' => 'Product not found']));
+            return $response->withHeader('Content-Type', 'application/json');
         } 
-
-        $stmt = $this->db->prepare('UPDATE products SET name = ?, category = ?, quantity = ?, description = ?, price = ?, photoUrl = ?, discount = ? WHERE id = ?');
-        $stmt->execute([$product['name'], $product['category'], $product['quantity'], $product['description'], $product['price'], $product['photoUrl'], $product['discount'], $productId]);
-
-        return $this->view->render($response, 'update_product_success.twig', ['message' => 'Product updated successfully']);
-    } 
+    
+        $stmt = $this->db->prepare('UPDATE products SET `name` = ?, category = ?, quantity = ?, `description` = ?, price = ?, photoUrl = ?, discount = ? WHERE id = ?');
+        
+        if (!$stmt->execute([
+            $data['name'], 
+            $data['category'], 
+            $data['quantity'], 
+            $data['description'], 
+            $data['price'], 
+            $data['photoUrl'], 
+            $data['discount'], 
+            $productId
+        ])) {
+            $response->getBody()->write(json_encode(['error' => 'Error at updating product']));
+            return $response->withStatus(500)->withHeader('Content-Type', 'application/json');
+        }
+    
+        $response->getBody()->write(json_encode(['message' => 'Product updated successfully']));
+        return $response->withAddedHeader('Content-Type', 'application/json');
+    }
+        
 
     public function delete(Request $request, Response $response, $args) {
         $productId = $args['productId'];

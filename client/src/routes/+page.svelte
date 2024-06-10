@@ -3,6 +3,7 @@
     import { getAllProducts } from "../api/products";
     import ProductCard from "../components/ProductCard.svelte";
     import type Product from '../interfaces/products';
+    import { goto } from '$app/navigation';
 
     let products: Product[] = [];
     let filteredProducts: { category: string, products: Product[] }[] = [];
@@ -26,7 +27,7 @@
                     const categoryProducts = products.filter(product => product.category === category);
                     return {
                         category,
-                        products: categoryProducts.length >= 4 ? categoryProducts.slice(0, 4) : []
+                        products: categoryProducts.length >= 1 ? categoryProducts.slice(0, 4) : []
                     };
                 })
                 .filter(categoryData => categoryData.products.length > 0);
@@ -42,10 +43,17 @@
     }
 </script>
 
-<div class="container p-4">
-    
+<div class="container p-4 mt-20">
+    <div class="flex justify-end items-end">
+        <button
+            on:click={() => goto('/admin/create-product')}
+            class="bg-emerald-600 text-white hover:bg-emerald-700 hover:text-gray-200 rounded-md p-2"
+        >
+            Add product
+        </button>
+    </div>
     {#each filteredProducts as categoryData}
-        <div class="mt-20 mb-4">
+        <div class=" mb-4">
             <h2 class="text-xl font-semibold mb-2">{firstCharToUpper(categoryData.category)}</h2>
             <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {#each categoryData.products as product}

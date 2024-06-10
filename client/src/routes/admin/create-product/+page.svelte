@@ -1,6 +1,13 @@
 <script lang="ts">
     import type Product from "../../../interfaces/products";
     import { createProduct,deleteProduct } from "../../../api/products";
+    import { goto } from "$app/navigation";
+    import DeletedSuccessDialog from "../../../components/DeletedSuccessDialog.svelte";
+    import { writable } from "svelte/store";
+
+    const showDeleteSuccessDialog = writable(false);
+    const text = 'Product has been created successfully!';
+
     let name = '';
     let description = '';
     let category = '';
@@ -34,6 +41,7 @@
 
         const response = await createProduct(product);
 
+        showDeleteSuccessDialog.set(true);
         console.log(response);
     }
     
@@ -56,7 +64,7 @@
         
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description</label>
-          <textarea id="description" bind:value={description} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+          <textarea maxlength={200} id="description" bind:value={description} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
         </div>
         
         <div class="mb-4">
@@ -86,3 +94,7 @@
       </form>
       
 </div>
+
+{#if showDeleteSuccessDialog}
+  <DeletedSuccessDialog {showDeleteSuccessDialog} {text} />
+{/if}
