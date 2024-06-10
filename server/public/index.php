@@ -9,6 +9,7 @@ use App\Controllers\ProductController;
 use App\Controllers\UserController;
 use App\Controllers\OrderController;
 use App\Controllers\CartController;
+use App\Middleware\SessionMiddleware;
 use App\Middleware\CorsMiddleware;
 use Slim\Middleware\BodyParsingMiddleware;
 
@@ -16,6 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/Controllers/HomeController.php';
 require __DIR__ . '/../src/Controllers/ProductController.php';
 require __DIR__ . '/../src/Controllers/UserController.php';
+require __DIR__ . '/../src/Middleware/SessionMiddleware.php';
 require __DIR__ . '/../src/Controllers/OrderController.php';
 require __DIR__ . '/../src/Controllers/CartController.php';
 require __DIR__ . '/../src/Middleware/CorsMiddleware.php';
@@ -37,6 +39,7 @@ try {
     $twig = Twig::create('../templates', ['cache' => false]);
     
     $app->add(new CorsMiddleware());
+    $app->add(new SessionMiddleware());
     $app->addBodyParsingMiddleware();
 
     $app->options('/{routes:.+}', function (Request $request, Response $response, $args) {

@@ -33,22 +33,18 @@
 
 <div 
     class="block w-full bg-white rounded-lg shadow-xl cursor-pointer p-2 my-2"
+    on:click={() => handleNagivation(product.name)}
+    on:keydown={handleKey}
+    role="button"
+    tabindex=0
 >
-        <div
-            on:click={() => handleNagivation(product.name)}
-            on:keydown={handleKey}
-            role="button"
-            tabindex=0
-        >
-            <img 
+        <img 
             src={product.photoUrl} 
             alt="product"
             class="p-2"
             width="400vh"
             height="100vh"
-
-            >
-        </div>
+        >
 
         <div class="w-full font-semibold p-2">
             <h1>{product.name}</h1>

@@ -29,7 +29,7 @@
     });
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-gray-50 text-blue-700"> <!-- Darker gray background for the surrounding area -->
+<div class="min-h-screen flex items-center justify-center bg-gray-200 text-blue-700"> <!-- Darker gray background for the surrounding area -->
     <div class="bg-gray-100 shadow-md rounded px-20 pt-10 pb-10 mb-6 w-256"> <!-- Adjusted width and padding, and darker gray background for the box -->
         <h2 class="text-4xl mb-8 font-bold"> <!-- Increased font size and made bold -->
             Register
@@ -66,6 +66,7 @@
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-4 px-5 text-lg text-gray-700 mb-5 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="*********" bind:value={password}>
             </div>
+           
             {#if errorMessage}
                 <p class="text-red-500 text-base italic">{errorMessage}</p> <!-- Adjusted font size -->
             {/if}

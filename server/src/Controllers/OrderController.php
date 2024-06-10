@@ -298,7 +298,7 @@ public function deleteOrder(Request $request, Response $response, $args) {
 }
 
 
-    /*public function checkAuthorization(Request $request, Response $response) {
+  /* public function checkAuthorization(Request $request, Response $response) {
         $userToken = $this->token['userId']; // geting the user id from the token
         // if the id is null return unauthorized twig template and error
         if ($userToken != NULL) {
@@ -327,8 +327,6 @@ public function deleteOrder(Request $request, Response $response, $args) {
         }
 
         return TRUE;
-    }*/
-    
+    }
+    */  
 }
-
-?>

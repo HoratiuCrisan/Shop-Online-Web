@@ -214,7 +214,7 @@ public function getShoppingCart(Request $request, Response $response, $args): Re
                                 JOIN products p ON pc.product_id = p.id
                                 WHERE pc.cart_id = ?');
     $stmt->execute([$cartId]);
-    $cartItems = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $responseBody = json_encode(['cartItems' => $cartItems]);
     $response->getBody()->write($responseBody);

@@ -75,7 +75,7 @@
 <div class="block w-full py-10 my-10">
     <div class="block md:flex justify-between">
         <div class="block w-2/4 mx-6 p-6 bg-white ">
-            <h1 class="text-lg font-semibold">{product.name}</h1>
+            <h1 class="text-lg font-semibold mb-4">{product.name}</h1>
     
            <div class="flex justify-center items-center mx-auto ">
                 <img 
