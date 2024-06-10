@@ -1,5 +1,6 @@
 <script lang="ts">
     import type Product from '../interfaces/products'
+    import {addItemToShoppingCart} from '../api/carts'
     import {goto} from '$app/navigation'
 
     const handleNagivation = (name: string | undefined) => {
@@ -13,24 +14,41 @@
         }
     }
 
+    const handleAddProduct = async () => {
+        try {
+            const response = await addItemToShoppingCart('test', product.id.toString(), 1);
+
+            if (response) {
+                const username = 'text';
+                console.log("Product added successfully");
+                goto(`/cart/${username}`);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     export let product: Product;
 </script>
 
 <div 
     class="block w-full bg-white rounded-lg shadow-xl cursor-pointer p-2 my-2"
-    on:click={() => handleNagivation(product.name)}
-    on:keydown={handleKey}
-    role="button"
-    tabindex=0
 >
-        <img 
+        <div
+            on:click={() => handleNagivation(product.name)}
+            on:keydown={handleKey}
+            role="button"
+            tabindex=0
+        >
+            <img 
             src={product.photoUrl} 
             alt="product"
             class="p-2"
             width="400vh"
             height="100vh"
 
-        >
+            >
+        </div>
 
         <div class="w-full font-semibold p-2">
             <h1>{product.name}</h1>
@@ -51,7 +69,12 @@
                         <span class="text-red-500">{product.price}$</span>
                     {/if}
                 </div>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg px-3 py-1">+</button>
+                <button
+                    on:click={handleAddProduct} 
+                    class="bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg px-3 py-1"
+                >
+                    +
+                </button>
             </div>
         </div>
 </div>

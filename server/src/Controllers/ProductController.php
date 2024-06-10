@@ -12,12 +12,38 @@ use PDO;
 class ProductController {
     private PDO $db;
     private Twig $view;
-    private array $token;
+    //private array $token;
 
-    public function __construct(PDO $db, Twig $view, array $token) {
+    public function __construct(PDO $db, Twig $view) {
         $this->db = $db;
         $this->view = $view;
-        $this->token = $token;
+        //$this->token = $token;
+    }
+
+    public function checkAuthentication(Request $request)
+    {
+        // Retrieve JWT token from headers
+        $token = $request->getAttribute('token');
+
+        // Check if token is present and valid
+        if (!$token || !isset($token['id'])) {
+            // Token is not present or invalid, user is not logged in
+            return [
+                'loggedIn' => false
+            ];
+        }
+
+        // Get the user ID from the JWT token
+        $userId = $token['id'];
+
+        // Get the user status (role) from the JWT token
+        $userStatus = $token['userStatus']; // Assuming 'userStatus' is included in the token
+
+        // Return logged-in status and user status
+        return [
+            'loggedIn' => true,
+            'userStatus' => $userStatus
+        ];
     }
 
     public function getAll(Request $request, Response $response, $args) {
@@ -118,6 +144,14 @@ class ProductController {
     }
 
     public function update(Request $request, Response $response, $args) {
+        $authInfo = $this->checkAuthentication($request);
+        $authInfo['loggedIn'];
+        $userStatus = $authInfo['userStatus'];
+
+        if ($userStatus != null) {
+            print_r("Status: " . $userStatus);
+        }
+
         $productId = $args['productId'];
         $data = $request->getParsedBody();
     
@@ -155,6 +189,7 @@ class ProductController {
         
 
     public function delete(Request $request, Response $response, $args) {
+        
         $productId = $args['productId'];
 
         $stmt = $this->db->prepare('DELETE FROM products WHERE id = ?');
@@ -165,4 +200,3 @@ class ProductController {
     }
 }
 
-?>

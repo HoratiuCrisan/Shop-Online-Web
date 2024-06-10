@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '468be9ac19f3b0ccafa528628f936d59a45b78d5',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '468be9ac19f3b0ccafa528628f936d59a45b78d5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -25,6 +25,24 @@
             'reference' => '9d94dc0154230ac39e5bf89398b324a86f63f765',
             'type' => 'library',
             'install_path' => __DIR__ . '/../fig/http-message-util',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v6.10.1',
+            'version' => '6.10.1.0',
+            'reference' => '500501c2ce893c824c801da135d02661199f60c5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'neomerx/cors-psr7' => array(
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => '515d7fdb60b9d475da70029d4e5662beaae1875f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../neomerx/cors-psr7',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -58,7 +76,7 @@
         'psr/http-factory-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '^1.0',
             ),
         ),
         'psr/http-message' => array(
@@ -73,7 +91,7 @@
         'psr/http-message-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
+                0 => '^1.0 || ^2.0',
             ),
         ),
         'psr/http-server-handler' => array(
@@ -113,9 +131,9 @@
             'dev_requirement' => false,
         ),
         'slim/psr7' => array(
-            'pretty_version' => '1.6.1',
-            'version' => '1.6.1.0',
-            'reference' => '72d2b2bac94ab4575d369f605dbfafbe168d3163',
+            'pretty_version' => '1.7.0',
+            'version' => '1.7.0.0',
+            'reference' => '753e9646def5ff4db1a06e5cf4ef539bfd30f467',
             'type' => 'library',
             'install_path' => __DIR__ . '/../slim/psr7',
             'aliases' => array(),
@@ -181,6 +199,33 @@
             'reference' => 'c565ad1e63f30e7477fc40738343c62b40bc672d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php81',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'tuupola/callable-handler' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'reference' => '0bc7b88630ca753de9aba8f411046856f5ca6f8c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tuupola/callable-handler',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'tuupola/cors-middleware' => array(
+            'pretty_version' => '1.4.3',
+            'version' => '1.4.3.0',
+            'reference' => '8fd7674f4c1910203685765f2e26ecdde57a25ab',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tuupola/cors-middleware',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'tuupola/http-factory' => array(
+            'pretty_version' => '1.4.0',
+            'version' => '1.4.0.0',
+            'reference' => 'ae3f8fbdd31cf2f1bbe920b38963c5e4d1e9c454',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tuupola/http-factory',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

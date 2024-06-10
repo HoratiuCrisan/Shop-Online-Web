@@ -1,6 +1,8 @@
 <script lang="ts">
     import type Product from '../interfaces/products';
+    
     export let product: Product;
+
     import { goto } from '$app/navigation';
     import { onMount, onDestroy } from 'svelte';
     import { filterProductsByCategory } from '../api/products';
@@ -119,10 +121,25 @@
 
             
 
-            <h1 class="font-bold text-red-600 text-lg m-4">{product.price}$</h1>
+            <div class="mx-4 text-lg font-sans">
+                {#if product.discount > 0}
+                        <div class="block">
+                            <span class="block line-through">{product.price}</span> 
+                            <span class="text-red-500">{parseFloat((product.price - product.price / 100 * product.discount).toFixed(2))}$</span>
+                        </div>
+                        
+                    {:else}
+                        <span class="text-red-500">{product.price}$</span>
+            {/if}
+            </div>
 
             <div class="flex justify-center text-center items-center mx-auto my-4">
-                <button class="w-full bg-blue-500 hover:bg-blue-600 rounded-md text-white text-lg font-semibold  py-2 mx-4">Add to cart</button>
+                <button 
+                    disabled={product.quantity > 0 ? false : true}
+                    class={`w-full ${product.quantity <= 0 ? 'bg-blue-400' : 'bg-blue-500 hover:bg-blue-600'}  rounded-md text-white text-lg font-semibold  py-2 mx-4`}
+                >
+                    Add to cart
+                </button>
             </div>
 
             <div class="w-full">
